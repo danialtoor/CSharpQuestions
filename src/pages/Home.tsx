@@ -24,6 +24,6 @@ const Home: React.FC = () => {
   );
 };
 //adding another comment
-
+//ading another comment
 
 export default Home;
