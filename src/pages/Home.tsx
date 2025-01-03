@@ -1,29 +1,32 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProblems } from '../services/mockapi';
 import { Link } from 'react-router-dom';
 
-//data will be replaced by api later
-const mockProblems = [
-  { id: '1', title: 'Chapter 1, 1', difficulty: 'Easy' },
-  { id: '2', title: 'Chapter 1, 2', difficulty: 'Easy' },
-  { id: '3', title: 'Chapter 1, 3', difficulty: 'Medium' },
-];
-
 const Home: React.FC = () => {
+  // Fetch problems using React Query
+  const { data: problems, isLoading, error } = useQuery({
+    queryKey: ['problems'],
+    queryFn: fetchProblems,
+  });
+
+  if (isLoading) return <p>Loading problems...</p>;
+  if (error) return <p>Error fetching problems: {error.message}</p>;
+
   return (
     <div>
-      <h1>Home Page - Solve C# Problems for CS1-CS2</h1>
+      <h1>Home Page - Solve C# Problems</h1>
       <ul>
-        {mockProblems.map((problem) => (
-          <li key={problem.id}>
+        {problems?.map((problem) => (
+          <li key={problem.id} style={{ marginBottom: '1rem' }}>
             <Link to={`/problems/${problem.id}`}>{problem.title}</Link>
             <span> - {problem.difficulty}</span>
+            <p style={{ fontSize: '0.9rem', color: '#555' }}>{problem.description}</p>
           </li>
         ))}
       </ul>
     </div>
   );
 };
-//adding another comment
-//ading another comment
 
 export default Home;
