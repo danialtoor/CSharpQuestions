@@ -16,6 +16,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <h1>Home Page - Solve C# Problems</h1>
+      <p>Chapter 1, will add content later for users to read and practice</p>
       <ul>
         {problems?.map((problem) => (
           <li key={problem.id} style={{ marginBottom: '1rem' }}>
